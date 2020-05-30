@@ -1,7 +1,7 @@
 package AppFramework;
 
 
-import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
 import io.qameta.allure.Step;
 import org.testng.Reporter;
 import org.testng.asserts.IAssert;
@@ -10,9 +10,9 @@ import org.testng.asserts.SoftAssert;
 public class CustomSoftAssert extends SoftAssert {
 
 
-    AndroidDriver driver;
+    IOSDriver driver;
 
-    public CustomSoftAssert(AndroidDriver driver) {
+    public CustomSoftAssert(IOSDriver driver) {
         this.driver = driver;
     }
 

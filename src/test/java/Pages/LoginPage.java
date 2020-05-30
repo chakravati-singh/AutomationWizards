@@ -2,11 +2,11 @@ package Pages;
 
 
 import AppFramework.Locator;
-import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.By;
 
 public class LoginPage extends BasePage {
-    public LoginPage(AndroidDriver driver) {
+    public LoginPage(IOSDriver driver) {
         super(driver);
     }
 

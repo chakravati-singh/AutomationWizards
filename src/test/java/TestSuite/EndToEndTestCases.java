@@ -35,16 +35,15 @@ public class EndToEndTestCases extends BaseTestSuite {
     @Test(retryAnalyzer = RetryAnalyzer.class)
     public void Test_End_To_End_Flow() throws IOException {
         loadTestData();
-//        LoginPage loginPage = new LoginPage(driver);
-//        loginPage.doLogin(emailId, password);
         HomePage homePage = new HomePage(driver);
+        homePage.clickOnSkipLoginFlowButton();
         homePage.clickOnRespectiveTab(hotelCategory);
         HotelSearchPage hotelSearchPage = new HotelSearchPage(driver);
         hotelSearchPage.searchACityAndSelectIt(cityName);
         String checkIn = hotelSearchPage.clickOnCheckIn();
         String checkOut = hotelSearchPage.clickOnCheckOut();
         String totalGuestCount = hotelSearchPage.enterAdultsAndChildrenCountInEachRoom(NumberOfAdults, NumberOfChildren, NumberOfRooms);
-        hotelSearchPage.clickOnBusinessTypeTrip();
+        hotelSearchPage.clickOnBusinessTypeTrip("Family");
         hotelSearchPage.clickOnSearchButton();
         HotelListingPage hotelListingPage = new HotelListingPage(driver);
         hotelListingPage.clickOnSortAndFilterButton();

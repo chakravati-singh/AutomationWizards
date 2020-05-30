@@ -1,11 +1,11 @@
 package Pages;
 
 import AppFramework.Locator;
-import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.By;
 
 public class HotelDetailPage extends BasePage {
-    public HotelDetailPage(AndroidDriver driver) {
+    public HotelDetailPage(IOSDriver driver) {
         super(driver);
     }
 

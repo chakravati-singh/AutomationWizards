@@ -2,11 +2,11 @@ package Pages;
 
 
 import AppFramework.Locator;
-import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.By;
 
 public class SortAndFilterPage extends BasePage {
-    public SortAndFilterPage(AndroidDriver driver) {
+    public SortAndFilterPage(IOSDriver driver) {
         super(driver);
     }
 

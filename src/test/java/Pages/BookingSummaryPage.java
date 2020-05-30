@@ -1,11 +1,11 @@
 package Pages;
 
 import AppFramework.Locator;
-import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.By;
 
 public class BookingSummaryPage extends BasePage {
-    public BookingSummaryPage(AndroidDriver driver) {
+    public BookingSummaryPage(IOSDriver driver) {
         super(driver);
     }
 

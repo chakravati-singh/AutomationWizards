@@ -1,9 +1,9 @@
 package AppFramework;
 
 
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
-import io.appium.java_client.remote.AndroidMobileCapabilityType;
+import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.ios.IOSElement;
+import io.appium.java_client.remote.IOSMobileCapabilityType;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
@@ -45,19 +45,26 @@ public class DriverInitialiser {
     }
 
 
-    public AndroidDriver<AndroidElement> getAndroidDriver(AppiumDriverLocalService appiumDriverLocalService, String DeviceName) throws MalformedURLException {
+    public IOSDriver<IOSElement> getIOSDriver(AppiumDriverLocalService appiumDriverLocalService, String DeviceName) throws MalformedURLException {
         String appiumServiceUrl = appiumDriverLocalService.getUrl().toString();
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-        desiredCapabilities.setCapability(MobileCapabilityType.UDID, DeviceName);
-        desiredCapabilities.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, newCommandTimeout);
-        desiredCapabilities.setCapability(MobileCapabilityType.DEVICE_NAME, DeviceName);
-        desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, automationName);
-        desiredCapabilities.setCapability(AndroidMobileCapabilityType.AUTO_GRANT_PERMISSIONS, String.valueOf(true));
-        desiredCapabilities.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, appPackage);
-        desiredCapabilities.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, appActivity);
-        //desiredCapabilities.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, "com.mmt.travel.app.common.login.ui.LoginActivity");
-        desiredCapabilities.setCapability(MobileCapabilityType.NO_RESET, "true");
-        AndroidDriver driver = new AndroidDriver<>(new URL(appiumServiceUrl), desiredCapabilities);
+        desiredCapabilities.setCapability("platformName", "iOS");
+        desiredCapabilities.setCapability("deviceName", "phonepeqa#3");
+        desiredCapabilities.setCapability("udid", DeviceName);
+        desiredCapabilities.setCapability("newCommandTimeout", 45000);
+        desiredCapabilities.setCapability("automationName", "XCUITest");
+        desiredCapabilities.setCapability("useNewWDA", "true");
+        desiredCapabilities.setCapability("app", "/Users/chakravati.singh/Desktop/MakeMyTrip.ipa");
+        desiredCapabilities.setCapability("platformVersion", "13.4.1");
+        desiredCapabilities.setCapability("autoAcceptAlerts",true);
+
+//        desiredCapabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "iOS");
+//        desiredCapabilities.setCapability(MobileCapabilityType.UDID, DeviceName);
+//        desiredCapabilities.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, newCommandTimeout);
+//        desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, automationName);
+//        desiredCapabilities.setCapability(IOSMobileCapabilityType.AUTO_ACCEPT_ALERTS, String.valueOf(true));
+//        desiredCapabilities.setCapability(MobileCapabilityType.NO_RESET, "true");
+        IOSDriver driver = new IOSDriver(new URL(appiumServiceUrl), desiredCapabilities);
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         return driver;
     }

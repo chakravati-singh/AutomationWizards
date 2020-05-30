@@ -1,7 +1,7 @@
 package Pages;
 
 import AppFramework.Locator;
-import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -9,7 +9,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 
 public class HotelListingPage extends BasePage {
-    public HotelListingPage(AndroidDriver driver) {
+    public HotelListingPage(IOSDriver driver) {
         super(driver);
     }
 

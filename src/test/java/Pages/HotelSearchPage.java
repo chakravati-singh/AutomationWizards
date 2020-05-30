@@ -1,93 +1,69 @@
 package Pages;
 
 import AppFramework.Locator;
-import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.By;
 
 public class HotelSearchPage extends BasePage {
-    public HotelSearchPage(AndroidDriver driver) {
+    public HotelSearchPage(IOSDriver driver) {
         super(driver);
     }
 
     /******************************************************************* Locators ****************************************************************/
 
-    private Locator cityText() {
-        return new Locator(By.id("city"), "City Text");
-    }
+    private Locator searchBox() { return new Locator(By.xpath("//XCUIElementTypeButton[@name='searchCity']"), "City/Area/Hotel search box"); }
 
-    private Locator searchBar() {
-        return new Locator(By.xpath("//android.widget.EditText[@text='Enter City/Area/Hotel Name']"), "Search bar");
-    }
+    private Locator searchBar() { return new Locator(By.id("Enter City/Area/Hotel Name"), "City/Area/Hotel search field"); }
 
     private Locator searchResult() {
-        return new Locator(By.xpath("//*[contains(@resource-id,'rv_autosearch_locus')]/android.widget.RelativeLayout"), "Search Result");
+        return new Locator(By.xpath("//XCUIElementTypeApplication[@name='MakeMyTrip']/XCUIElementTypeTable[2]/XCUIElementTypeCell[1]"), "Search Result");
     }
 
-    private Locator checkInDate() {
-        return new Locator(By.id("checkInDate"), "Check-In Date");
-    }
+    private Locator checkInDate() { return new Locator(By.id("CHECK-IN"), "Check-In Date"); }
 
     private Locator checkInMonthYear() {
-        return new Locator(By.id("checkInMonthYear"), "Check-In Month");
+        return new Locator(By.id("CheckInMonth"), "Check-In Month");
     }
 
-    private Locator checkOutDate() {
-        return new Locator(By.id("checkOutDate"), "Check-Out Date");
-    }
+    private Locator checkOutDate() { return new Locator(By.id("CHECK-OUT"), "Check-Out Date"); }
 
     private Locator checkOutMonthYear() {
-        return new Locator(By.id("checkOutMonthYear"), "Check-Out Month");
+        return new Locator(By.id("CheckOutMonth"), "Check-Out Month");
     }
 
     private Locator doneButton() {
-        return new Locator(By.id("rlDone"), "Done Button");
+        return new Locator(By.id("DONE"), "Done Button");
     }
 
-    private Locator guestCount() {
-        return new Locator(By.id("guest_count"), "Guests Count");
-    }
+    private Locator guestsButton() { return new Locator(By.id("Guests"), "Guests Button"); }
 
-    private Locator minusAdultButton() {
-        return new Locator(By.id("ivadultsubtract"), "Minus Adult Button");
-    }
+    private Locator guestCount() { return new Locator(By.id("AdultCount"), "Guests Count"); }
 
-    private Locator plusAdultButton() {
-        return new Locator(By.id("ivadultadd"), "Plus Adult Button");
-    }
+    private Locator plusAdultButton() { return new Locator(By.xpath("//XCUIElementTypeButton[@name='AddAdultInRoom']"), "Plus Adult Button"); }
 
-    private Locator plusChildButton() {
-        return new Locator(By.id("ivchildadd"), "PLus Child Button");
-    }
+    private Locator plusChildButton() { return new Locator(By.xpath("//XCUIElementTypeButton[@name='AddChildInRoom']"), "PLus Child Button"); }
 
-    private Locator guestDoneButton() {
-        return new Locator(By.id("btn_done"), "Done Button");
-    }
+    private Locator guestDoneButton() { return new Locator(By.id("DONE"), "Done Button"); }
 
     private Locator addRoomButton() {
-        return new Locator(By.id("btn_add_room"), "Add Room Button");
+        return new Locator(By.id("+ ADD ANOTHER ROOM"), "Add Room Button");
     }
+
+    private Locator adultCount() { return new Locator(By.xpath("//XCUIElementTypeStaticText[@name='AdultCountInRoom']"), "Adult Count"); }
+
+    private Locator childCount() { return new Locator(By.xpath("//XCUIElementTypeStaticText[@name='ChildCountInRoom']"), "Child Count"); }
+
+    private Locator businessTypeTrip(String tripType) { return new Locator(By.id("'"+tripType+"'"), "Trip Type Button"); }
 
     private Locator searchButton() {
-        return new Locator(By.id("search_button"), "Search Button");
-    }
-
-    private Locator businessTypeTrip() {
-        return new Locator(By.id("rb_travel_type_business"), "Business Type Trip");
-    }
-
-    private Locator adultCount() {
-        return new Locator(By.id("tvadultcount"), "Adult Count");
-    }
-
-    private Locator childCount() {
-        return new Locator(By.id("tvchildcount"), "Child Count");
+        return new Locator(By.id("SEARCH"), "Search Button");
     }
 
 
     /***************************************************************** Methods *******************************************************************/
 
     private void clickOnCity() {
-        click(cityText());
+        click(searchBox());
     }
 
     public void searchACityAndSelectIt(String cityName) {
@@ -109,7 +85,7 @@ public class HotelSearchPage extends BasePage {
     }
 
     public String enterAdultsAndChildrenCountInEachRoom(int adults, int children, int rooms) {
-        click(guestCount());
+        click(guestsButton());
         for (int k = 0; k < rooms; k++) {
             int existingAdultCount = Integer.parseInt(getText(adultCount()));
             for (int i = 0; i < adults - existingAdultCount; i++) click(plusAdultButton());
@@ -125,8 +101,8 @@ public class HotelSearchPage extends BasePage {
         click(searchButton());
     }
 
-    public void clickOnBusinessTypeTrip() {
-        click(businessTypeTrip());
+    public void clickOnBusinessTypeTrip(String tripType) {
+        click(businessTypeTrip(tripType));
     }
 
 
