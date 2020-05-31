@@ -13,15 +13,16 @@ public class SortAndFilterPage extends BasePage {
     /******************************************************************* Locators ****************************************************************/
 
     private Locator fourAndAboveRating() {
-        return new Locator(By.xpath("//*[@text='4.0 & Above']"), "4.0 & Above Rating");
+        return new Locator(By.xpath("//XCUIElementTypeStaticText[`name BEGINSWITH '4.0 & Above'`]"), "4.0 & Above Rating");
     }
 
     private Locator applyFilters() {
-        return new Locator(By.id("tv_apply"), "Apply Filter");
+        return new Locator(By.id("APPLY FILTERS"), "Apply Filter");
     }
 
     private Locator priceSeekBar() {
-        return new Locator(By.id("price_seek_bar"), "Price Seek Bar");
+        String sliderPathQuery = "//XCUIElementTypeApplication[@name='MakeMyTrip']/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell[4]/XCUIElementTypeOther[1]";
+        return new Locator(By.xpath(sliderPathQuery), "Price Seek Bar");
     }
 
     /***************************************************************** Methods *******************************************************************/

@@ -11,8 +11,6 @@ import java.util.Properties;
 
 public class EndToEndTestCases extends BaseTestSuite {
 
-    private String emailId;
-    private String password;
     private String hotelCategory;
     private String cityName;
     private int NumberOfAdults;
@@ -23,8 +21,6 @@ public class EndToEndTestCases extends BaseTestSuite {
         FileReader fileReader = new FileReader("src/test/resources/testData.properties");
         Properties p = new Properties();
         p.load(fileReader);
-        emailId = p.getProperty("emailId");
-        password = p.getProperty("password");
         hotelCategory = p.getProperty("hotelCategory");
         cityName = p.getProperty("cityName");
         NumberOfAdults = Integer.parseInt(p.getProperty("NumberOfAdults"));
@@ -40,16 +36,15 @@ public class EndToEndTestCases extends BaseTestSuite {
         homePage.clickOnRespectiveTab(hotelCategory);
         HotelSearchPage hotelSearchPage = new HotelSearchPage(driver);
         hotelSearchPage.searchACityAndSelectIt(cityName);
-        String checkIn = hotelSearchPage.clickOnCheckIn();
-        String checkOut = hotelSearchPage.clickOnCheckOut();
+        hotelSearchPage.clickOnCheckIn();
+        hotelSearchPage.clickOnCheckOut();
         String totalGuestCount = hotelSearchPage.enterAdultsAndChildrenCountInEachRoom(NumberOfAdults, NumberOfChildren, NumberOfRooms);
-        hotelSearchPage.clickOnBusinessTypeTrip("Family");
+        hotelSearchPage.clickOnBusinessTypeTrip();
         hotelSearchPage.clickOnSearchButton();
         HotelListingPage hotelListingPage = new HotelListingPage(driver);
         hotelListingPage.clickOnSortAndFilterButton();
         SortAndFilterPage sortAndFilterPage = new SortAndFilterPage(driver);
         sortAndFilterPage.clickOnPriceFilter();
-        sortAndFilterPage.clickOnFourAndAboveRating();
         sortAndFilterPage.clickOnApplyFilter();
         String hotelName = hotelListingPage.clickOnFifthHotel();
         HotelDetailPage hotelDetailPage = new HotelDetailPage(driver);
@@ -57,10 +52,11 @@ public class EndToEndTestCases extends BaseTestSuite {
         hotelDetailPage.clickOnContinueButton();
         BookingSummaryPage bookingSummaryPage = new BookingSummaryPage(driver);
         customSoftAssert.assertEquals(bookingSummaryPage.getHotelName(), hotelName);
-        customSoftAssert.assertEquals(bookingSummaryPage.getCityName(), cityName);
         customSoftAssert.assertTrue(bookingSummaryPage.getRoomCount().contains(String.valueOf(NumberOfRooms)));
         customSoftAssert.assertTrue(bookingSummaryPage.getNumberOfGuests().contains(String.valueOf(Integer.parseInt(totalGuestCount))));
-        customSoftAssert.assertTrue(checkIn.contains(bookingSummaryPage.getCheckInDate()));
-        customSoftAssert.assertTrue(checkOut.contains(bookingSummaryPage.getCheckOutDate()));
+        bookingSummaryPage.fillGuestDetails();
+        bookingSummaryPage.makeSpecialRequest();
+        bookingSummaryPage.uncheckDonateCheckBox();
+        bookingSummaryPage.clickOnContinueButton();
     }
 }

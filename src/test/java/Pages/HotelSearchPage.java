@@ -16,16 +16,17 @@ public class HotelSearchPage extends BasePage {
     private Locator searchBar() { return new Locator(By.id("Enter City/Area/Hotel Name"), "City/Area/Hotel search field"); }
 
     private Locator searchResult() {
-        return new Locator(By.xpath("//XCUIElementTypeApplication[@name='MakeMyTrip']/XCUIElementTypeTable[2]/XCUIElementTypeCell[1]"), "Search Result");
+        String searchResultInTableViewBaseQuery = "//XCUIElementTypeApplication[@name='MakeMyTrip']/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable[2]";
+        return new Locator(By.xpath(searchResultInTableViewBaseQuery+"/XCUIElementTypeCell[1]"), "Search Result");
     }
 
-    private Locator checkInDate() { return new Locator(By.id("CHECK-IN"), "Check-In Date"); }
+    private Locator checkInDate() { return new Locator(By.xpath("//XCUIElementTypeButton[@name='CheckInDate']"), "Check-In Date"); }
 
     private Locator checkInMonthYear() {
         return new Locator(By.id("CheckInMonth"), "Check-In Month");
     }
 
-    private Locator checkOutDate() { return new Locator(By.id("CHECK-OUT"), "Check-Out Date"); }
+    private Locator checkOutDate() { return new Locator(By.xpath("//XCUIElementTypeButton[@name='CheckOutDate']"), "Check-Out Date"); }
 
     private Locator checkOutMonthYear() {
         return new Locator(By.id("CheckOutMonth"), "Check-Out Month");
@@ -39,9 +40,13 @@ public class HotelSearchPage extends BasePage {
 
     private Locator guestCount() { return new Locator(By.id("AdultCount"), "Guests Count"); }
 
-    private Locator plusAdultButton() { return new Locator(By.xpath("//XCUIElementTypeButton[@name='AddAdultInRoom']"), "Plus Adult Button"); }
+    private Locator plusAdultButton() {
+        return new Locator(By.name("AddAdultInRoom"),"Plus Adult Button");
+    }
 
-    private Locator plusChildButton() { return new Locator(By.xpath("//XCUIElementTypeButton[@name='AddChildInRoom']"), "PLus Child Button"); }
+    private Locator plusChildButton() {
+        return new Locator(By.name("AddChildInRoom"),"Plus Child Button");
+    }
 
     private Locator guestDoneButton() { return new Locator(By.id("DONE"), "Done Button"); }
 
@@ -49,11 +54,17 @@ public class HotelSearchPage extends BasePage {
         return new Locator(By.id("+ ADD ANOTHER ROOM"), "Add Room Button");
     }
 
-    private Locator adultCount() { return new Locator(By.xpath("//XCUIElementTypeStaticText[@name='AdultCountInRoom']"), "Adult Count"); }
+    private Locator adultCount(int roomNumber) {
+        String adultCountPath = "(//XCUIElementTypeStaticText[@name='AdultCountInRoom'])["+roomNumber+"]";
+        return new Locator(By.xpath(adultCountPath), "Adult Count");
+    }
 
-    private Locator childCount() { return new Locator(By.xpath("//XCUIElementTypeStaticText[@name='ChildCountInRoom']"), "Child Count"); }
+    private Locator childCount(int roomNumber) {
+        String childCountPath = "(//XCUIElementTypeStaticText[@name='ChildCountInRoom'])["+roomNumber+"]";
+        return new Locator(By.xpath(childCountPath), "Child Count");
+    }
 
-    private Locator businessTypeTrip(String tripType) { return new Locator(By.id("'"+tripType+"'"), "Trip Type Button"); }
+    private Locator businessTypeTrip() { return new Locator(By.xpath("(//XCUIElementTypeButton[@name='leisure'])[1]"), "Trip Type Button"); }
 
     private Locator searchButton() {
         return new Locator(By.id("SEARCH"), "Search Button");
@@ -86,12 +97,12 @@ public class HotelSearchPage extends BasePage {
 
     public String enterAdultsAndChildrenCountInEachRoom(int adults, int children, int rooms) {
         click(guestsButton());
-        for (int k = 0; k < rooms; k++) {
-            int existingAdultCount = Integer.parseInt(getText(adultCount()));
+        for (int k = 1; k <= rooms; k++) {
+            int existingAdultCount = Integer.parseInt(getText(adultCount(k)));
             for (int i = 0; i < adults - existingAdultCount; i++) click(plusAdultButton());
-            int existingChildCount = Integer.parseInt(getText(childCount()));
+            int existingChildCount = Integer.parseInt(getText(childCount(k)));
             for (int j = 0; j < children - existingChildCount; j++) click(plusChildButton());
-            if (k != rooms - 1) click(addRoomButton());
+            if (k != rooms) click(addRoomButton());
         }
         click(guestDoneButton());
         return getText(guestCount());
@@ -101,8 +112,8 @@ public class HotelSearchPage extends BasePage {
         click(searchButton());
     }
 
-    public void clickOnBusinessTypeTrip(String tripType) {
-        click(businessTypeTrip(tripType));
+    public void clickOnBusinessTypeTrip() {
+        click(businessTypeTrip());
     }
 
 

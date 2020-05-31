@@ -3,10 +3,6 @@ package Pages;
 import AppFramework.Locator;
 import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-
-import java.util.LinkedHashSet;
-import java.util.List;
 
 public class HotelListingPage extends BasePage {
     public HotelListingPage(IOSDriver driver) {
@@ -16,34 +12,24 @@ public class HotelListingPage extends BasePage {
     /******************************************************************* Locators ****************************************************************/
 
     private Locator sortFilterButton() {
-        return new Locator(By.id("sort_filter"), "Sort Filter");
+        return new Locator(By.id("Sort & Filter"), "Sort Filter");
     }
 
     private Locator hotelName() {
-        return new Locator(By.id("tvHotelName"), "Hotel Name");
+        return new Locator(By.xpath("(//XCUIElementTypeStaticText[@name='HotelNameOnListing'])[5]"), "Hotel Name");
     }
 
     /***************************************************************** Methods *******************************************************************/
 
     public void clickOnSortAndFilterButton() {
+        clickOnSpecificPoint(100,100);
         click(sortFilterButton());
     }
 
     public String clickOnFifthHotel() {
-        String hotelName = null;
-        LinkedHashSet<String> hotels = new LinkedHashSet<>();
-        while (hotels.size() < 5) {
-            List<WebElement> elements = getWebElements(hotelName());
-            for (WebElement element : elements) {
-                hotels.add(getText(element));
-                if (hotels.size() == 5) {
-                    hotelName = getText(element);
-                    click(element);
-                    break;
-                }
-            }
-            if (hotels.size() < 5) swipeDown();
-        }
+        bringElementIntoViewDown(hotelName(),10);
+        String hotelName = getText(hotelName());
+        click(hotelName());
         return hotelName;
     }
 }

@@ -12,11 +12,11 @@ public class HotelDetailPage extends BasePage {
     /******************************************************************* Locators ****************************************************************/
 
     private Locator selectRoomButton() {
-        return new Locator(By.id("btnShowAllHotels"), "Select Room Button");
+        return new Locator(By.id("SelectRoom"), "Select Room Button");
     }
 
     private Locator continueButton() {
-        return new Locator(By.id("btnShowAllHotels"), "Continue Button");
+        return new Locator(By.id("CONTINUE"), "Continue Button");
     }
 
     /***************************************************************** Methods *******************************************************************/

@@ -1,29 +1,16 @@
 package AppFramework;
 
-
-import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.ios.IOSDriver;
-import io.appium.java_client.ios.IOSTouchAction;
-import io.appium.java_client.ios.IOSMobileCommandHelper;
-import io.appium.java_client.touch.LongPressOptions;
 import io.appium.java_client.touch.WaitOptions;
-import io.appium.java_client.touch.offset.ElementOption;
 import io.appium.java_client.touch.offset.PointOption;
 import io.qameta.allure.Step;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Reporter;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
-import java.util.Set;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 public class AppActions {
@@ -203,12 +190,6 @@ public class AppActions {
             driver.manage().timeouts().implicitlyWait(DefaultTime, TimeUnit.SECONDS);
         }
         return false;
-    }
-
-    protected static final boolean equalsWithNulls(String a, String b) {
-        if (a == b) return true;
-        if ((a == null) || (b == null)) return false;
-        return a.equals(b);
     }
 
     public void waitFor(int timeout) {
